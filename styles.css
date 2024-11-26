@@ -1,9 +1,11 @@
+/* Global Styles */
 body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #eef2f3;
   }
   
+  /* Chat Container */
   .chat-container {
     max-width: 450px;
     margin: 50px auto;
@@ -13,6 +15,7 @@ body {
     background-color: #ffffff;
   }
   
+  /* Header */
   .chat-header {
     background-color: #4a90e2;
     color: #ffffff;
@@ -38,6 +41,7 @@ body {
     cursor: pointer;
   }
   
+  /* Chat Box */
   .chat-box {
     max-height: 500px;
     overflow-y: auto;
@@ -69,6 +73,7 @@ body {
     text-align: left;
   }
   
+  /* Input Area */
   .chat-input {
     display: flex;
     align-items: center;
@@ -112,5 +117,62 @@ body {
     fill: #ffffff;
     width: 20px;
     height: 20px;
+  }
+  
+  /* Media Queries for Mobile Responsiveness */
+  @media screen and (max-width: 768px) {
+    /* Make the chat container more compact on smaller screens */
+    .chat-container {
+      max-width: 100%;
+      margin: 20px;
+    }
+  
+    /* Adjust font sizes in header and messages */
+    .chat-header h1 {
+      font-size: 1.3em;
+    }
+  
+    .chat-box .message {
+      padding: 8px 12px;
+      max-width: 80%;
+    }
+  
+    /* Adjust chat input field size */
+    .chat-input input {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+  
+    .chat-input button {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    /* Further compact design for very small screens */
+    .chat-container {
+      max-width: 100%;
+      margin: 10px;
+    }
+  
+    .chat-header h1 {
+      font-size: 1.2em;
+    }
+  
+    .chat-box .message {
+      padding: 6px 10px;
+      max-width: 85%;
+    }
+  
+    .chat-input input {
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+  
+    .chat-input button {
+      width: 35px;
+      height: 35px;
+    }
   }
   
