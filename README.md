@@ -1,2 +1,0 @@
-# Chatbotai
-Chatbot project
