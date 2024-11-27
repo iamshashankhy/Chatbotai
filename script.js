@@ -11,7 +11,7 @@ let selectedSubject = ""; // To store the selected subject
 const botResponses = {
   hello: "Hello! How can I assist you?",
   hi: "Hello! How can I assist you?",
-  thanks: "You're welcome! Have a great day!",
+  Nothanks: "You're welcome! Have a great day!",
   bye: "Goodbye! Keep up the good work and see you next time!",
   ok: "Ok, thank you! How else can I assist you?",
 };
