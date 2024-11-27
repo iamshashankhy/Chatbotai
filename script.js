@@ -14,6 +14,7 @@ const botResponses = {
   thanks: "You're welcome! Have a great day!",
   bye: "Goodbye! Keep up the good work and see you next time!",
   ok: "Ok, thank you! How else can I assist you?",
+  "no thanks": "You're welcome!",
 };
 
 // Subject-wise books and courses
@@ -97,34 +98,36 @@ function handleInput() {
   addMessage(userInput.value, "user");
   userInput.value = "";
 
-  // Respond to greetings, thanks, and "ok"
+  // Respond to predefined phrases
   if (userMessage in botResponses) {
     addMessage(botResponses[userMessage], "bot");
 
-    // If the user says "hello" or "hi", ask about books or courses
-    if (userMessage === "hello" || userMessage === "hi") {
-      addMessage("Would you like suggestions for books or courses?", "bot");
-      conversationStep = 1; // Start main conversation flow
-    } else if (userMessage === "ok") {
-      // Ensure "ok" response is only given once, then continue conversation
-      if (conversationStep !== 0) {
-        addMessage("Ok, thank you! How else can I assist you?", "bot");
-      }
-      conversationStep = 1; // Re-start the loop asking for books or courses
+    // Reset conversation if "no thanks" is entered
+    if (userMessage === "no thanks") {
+      conversationStep = 0;
+      selectedOption = "";
+      selectedSubject = "";
     }
     return;
   }
 
+  // Handle specific responses for "no"
+  if (userMessage === "no") {
+    addMessage("How can I assist you?", "bot");
+    conversationStep = 0; // Reset conversation step
+    return;
+  }
+
   // Main conversation flow (for books or courses)
-  if (conversationStep === 1) {
+  if (conversationStep === 0) {
     if (userMessage.includes("book") || userMessage.includes("course")) {
       selectedOption = userMessage.includes("book") ? "books" : "courses";
       addMessage("Great! Which subject are you interested in? Options: Python, Computer Networks, Algorithms, Web Development, Machine Learning.", "bot");
-      conversationStep++;
+      conversationStep = 1; // Move to subject selection step
     } else {
       addMessage("Please respond with 'books' or 'courses'.", "bot");
     }
-  } else if (conversationStep === 2) {
+  } else if (conversationStep === 1) {
     if (subjectResources[userMessage]) {
       selectedSubject = userMessage;
       const resources = subjectResources[selectedSubject][selectedOption];
@@ -138,11 +141,11 @@ function handleInput() {
       } else {
         addMessage("Would you also like book suggestions for this subject? (yes/no)", "bot");
       }
-      conversationStep++;
+      conversationStep = 2;
     } else {
       addMessage("Please choose a valid subject. Options: Python, Computer Networks, Algorithms, Web Development, Machine Learning.", "bot");
     }
-  } else if (conversationStep === 3) {
+  } else if (conversationStep === 2) {
     if (userMessage === "yes") {
       const alternateOption = selectedOption === "books" ? "courses" : "books";
       const resources = subjectResources[selectedSubject][alternateOption];
